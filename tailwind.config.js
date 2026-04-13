@@ -7,13 +7,21 @@ export default {
         './storage/framework/views/*.php',
         './resources/**/*.blade.php',
         './resources/**/*.js',
+        './resources/**/*.jsx',
         './resources/**/*.vue',
     ],
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                primary: {
+                    DEFAULT: '#fbbf24', // yellow-400
+                    hover: '#f59e0b',   // yellow-500
+                },
+                dark: '#1e293b', // slate-800
+            }
         },
     },
     plugins: [],
