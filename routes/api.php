@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\RecommenderController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TukangProfileController;
+use App\Http\Controllers\Api\TukangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/recommend', [RecommenderController::class, 'recommend']);
 Route::get('/reviews/tukang/{tukangId}', [ReviewController::class, 'byTukang']);
 Route::get('/tukang/{id}', [TukangProfileController::class, 'show']);
+
+// New Tukang Management Routes
+Route::post('/tukang/register', [TukangController::class, 'registerTukang']);
+Route::get('/tukang', [TukangController::class, 'getApprovedTukangs']);
 
 // ── Protected Routes (require Bearer token) ────────────────
 Route::middleware('auth:sanctum')->group(function () {
@@ -45,5 +50,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard']);
         Route::get('/users', [AdminController::class, 'users']);
         Route::get('/orders', [AdminController::class, 'orders']);
+
+        // Tukang Verification & Management
+        Route::get('/tukang/pending', [TukangController::class, 'getPendingTukangs']);
+        Route::post('/tukang/approve/{id}', [TukangController::class, 'approveTukang']);
+        Route::post('/tukang/reject/{id}', [TukangController::class, 'rejectTukang']);
+        Route::post('/tukang/blacklist/{id}', [TukangController::class, 'blacklistTukang']);
+        Route::post('/tukang/unblacklist/{id}', [TukangController::class, 'unblacklistTukang']);
     });
 });
